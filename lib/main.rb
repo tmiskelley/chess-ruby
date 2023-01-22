@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-require './lib/board'
+require './lib/game_manager'
 
-ChessBoard.new.display_board
+GameManager.new.play
