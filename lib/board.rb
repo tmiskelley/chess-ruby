@@ -7,7 +7,6 @@ require './lib/pieces/king'
 class ChessBoard
   def initialize
     @squares = generate_squares
-    place_kings
   end
 
   def display_board
@@ -17,6 +16,19 @@ class ChessBoard
       # remember to update piece printing to unicode symbol
     end
     print "|\n"
+  end
+
+  def place_king(king)
+    king_start = find_square(king.current_pos)
+    king_start.piece = king
+  end
+
+  def move_piece(piece, move)
+    coordinate = move[1..]
+    new_spot = find_square(coordinate)
+
+    find_square(piece.current_pos).piece = nil
+    new_spot.piece = piece
   end
 
   private
@@ -34,14 +46,6 @@ class ChessBoard
   def find_square(coordinate)
     @squares.each { |square| return square if coordinate == square.coordinate }
     raise "square '#{coordinate}' does not exist."
-  end
-
-  def place_kings
-    white_king_start = find_square('e1')
-    black_king_start = find_square('e8')
-
-    white_king_start.piece = King.new("\u265A", white_king_start)
-    black_king_start.piece = King.new("\u2654", black_king_start)
   end
 end
 

@@ -10,7 +10,7 @@ class King
   def initialize(symbol, start_pos)
     @symbol = symbol
     @current_pos = start_pos
-    @potential_moves = generate_moves(@current_pos.coordinate.split(''))
+    @potential_moves = generate_moves(@current_pos.split(''))
   end
 
   # generates all possible moves that the King can make
