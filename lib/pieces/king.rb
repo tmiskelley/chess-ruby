@@ -3,15 +3,21 @@
 # represents chess king moveset and rules
 class King
   attr_accessor :current_pos
-  attr_reader :symbol
+  attr_reader :symbol, :potential_moves
 
   MOVES = [-1, 0, 1].repeated_permutation(2).to_a
 
   def initialize(symbol, start_pos)
     @symbol = symbol
     @current_pos = start_pos
+    @potential_moves = update_position
+  end
+
+  def update_position
     @potential_moves = generate_moves(@current_pos.split(''))
   end
+
+  private
 
   # generates all possible moves that the King can make
   def generate_moves(current_spot)
