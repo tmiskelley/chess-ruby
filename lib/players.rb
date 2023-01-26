@@ -6,7 +6,9 @@ class WhitePlayer
 
   def initialize
     @name = 'White'
-    @pieces = [King.new("\u265A", 'e1')]
+    @pieces = {
+      'K' => King.new("\u265A", 'e1')
+    }
   end
 end
 
@@ -16,6 +18,8 @@ class BlackPlayer
 
   def initialize
     @name = 'Black'
-    @pieces = [King.new("\u2654", 'e8')]
+    @pieces = {
+      'K' => King.new("\u2654", 'e8')
+    }
   end
 end
