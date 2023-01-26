@@ -27,7 +27,7 @@ class GameManager
 
   def place_pieces
     @players.each do |player|
-      player.pieces.each do |piece|
+      player.pieces.each do |_key, piece|
         @board.place_king(piece)
       end
     end
@@ -35,19 +35,29 @@ class GameManager
 
   def player_move
     input = validate_input
-    @board.move_piece(@current_player.pieces[0], input)
-    @current_player.pieces[0].current_pos = input[1..]
-    @current_player.pieces[0].update_position
+    @board.move_piece(@current_player.pieces[input[0]], input)
+    @current_player.pieces[input[0]].move_king(input[1..])
   end
 
   def validate_input
     input = gets.chomp
-    coordinate = input[1..].split('')
-    coordinate[1] = coordinate[1].to_i
-    return input if @current_player.pieces[0].potential_moves.any? { |arr| arr == coordinate }
 
-    print 'That square cannot be reached, please enter another square: '
+    unless invalid_input?(input)
+      coordinate = input[1..].split('')
+      coordinate[1] = coordinate[1].to_i
+      return input if legal_move?(input, coordinate)
+    end
+
+    print 'Entered move is invalid or illegal, please enter another move: '
     validate_input
+  end
+
+  def invalid_input?(input)
+    input == '' || input.size > 3 || !@current_player.pieces.key?(input[0])
+  end
+
+  def legal_move?(input, coordinate)
+    @current_player.pieces[input[0]].potential_moves.any? { |arr| arr == coordinate }
   end
 
   def switch_player
