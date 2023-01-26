@@ -13,8 +13,9 @@ class King
     @potential_moves = update_position
   end
 
-  def update_position
-    @potential_moves = generate_moves(@current_pos.split(''))
+  def move_king(coordinate)
+    @current_pos = coordinate
+    update_position
   end
 
   private
@@ -28,5 +29,9 @@ class King
       .select { |arr| arr[0].between?(97, 104) && arr[1].between?(1, 8) }
       .map { |arr| [arr[0].chr, arr[1]] }
       .reject { |arr| arr.join == @current_pos }
+  end
+
+  def update_position
+    @potential_moves = generate_moves(@current_pos.split(''))
   end
 end
