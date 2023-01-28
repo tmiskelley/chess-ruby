@@ -9,7 +9,7 @@ require './lib/board'
 class GameManager
   def initialize
     @board = ChessBoard.new
-    @players = [WhitePlayer.new, BlackPlayer.new]
+    @players = create_players
     @current_player = @players[0]
     place_pieces
   end
@@ -24,6 +24,21 @@ class GameManager
   end
 
   private
+
+  def create_players
+    white_pieces = {
+      'K' => King.new("\u265A", 'e1')
+    }
+
+    black_pieces = {
+      'K' => King.new("\u2654", 'e8')
+    }
+
+    white_player = Player.new('White', white_pieces)
+    black_player = Player.new('Black', black_pieces)
+
+    [white_player, black_player]
+  end
 
   def place_pieces
     @players.each do |player|
