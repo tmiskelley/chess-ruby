@@ -51,7 +51,7 @@ class GameManager
   def player_move
     input = validate_input
     @board.move_piece(@current_player.pieces[input[0]], input)
-    @current_player.pieces[input[0]].move_king(input[1..])
+    @current_player.pieces[input[0]].move(input[1..])
   end
 
   def validate_input
@@ -60,7 +60,7 @@ class GameManager
     unless invalid_input?(input)
       coordinate = input[1..].split('')
       coordinate[1] = coordinate[1].to_i
-      return input if legal_move?(input, coordinate)
+      return input if potential_move?(input, coordinate)
     end
 
     print 'Entered move is invalid or illegal, please enter another move: '
@@ -71,7 +71,7 @@ class GameManager
     input == '' || input.size > 3 || !@current_player.pieces.key?(input[0])
   end
 
-  def legal_move?(input, coordinate)
+  def potential_move?(input, coordinate)
     @current_player.pieces[input[0]].potential_moves.any? { |arr| arr == coordinate }
   end
 

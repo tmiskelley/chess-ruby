@@ -13,7 +13,7 @@ class King
     @potential_moves = update_position
   end
 
-  def move_king(coordinate)
+  def move(coordinate)
     @current_pos = coordinate
     update_position
   end
