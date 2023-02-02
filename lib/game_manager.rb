@@ -60,11 +60,10 @@ class GameManager
     unless invalid_input?(input)
       coordinate = input[1..].split('')
       coordinate[1] = coordinate[1].to_i
-      return input if potential_move?(input, coordinate)
+      return input if potential_move?(input, coordinate) && not_king?(input, coordinate)
     end
 
-    print 'Entered move is invalid or illegal, please enter another move: '
-    validate_input
+    input_error
   end
 
   def invalid_input?(input)
@@ -73,6 +72,16 @@ class GameManager
 
   def potential_move?(input, coordinate)
     @current_player.pieces[input[0]].potential_moves.any? { |arr| arr == coordinate }
+  end
+
+  def not_king?(input, coordinate)
+    # returns true as long as the piece on chosen square is not the king
+    !@board.find_square(coordinate.join).piece.is_a? King
+  end
+
+  def input_error
+    print 'Entered move is invalid or illegal, please enter another move: '
+    validate_input
   end
 
   def switch_player

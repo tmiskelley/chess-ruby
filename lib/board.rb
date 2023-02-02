@@ -18,6 +18,11 @@ class ChessBoard
     print "|\n"
   end
 
+  def find_square(coordinate)
+    @squares.each { |square| return square if coordinate == square.coordinate }
+    raise "square '#{coordinate}' does not exist."
+  end
+
   def place_king(king)
     king_start = find_square(king.current_pos)
     king_start.piece = king
@@ -41,11 +46,6 @@ class ChessBoard
       .sort { |arr1, arr2| arr2[1] <=> arr1[1] }
       .each { |arr| squares.push(Square.new(arr.join)) }
     squares
-  end
-
-  def find_square(coordinate)
-    @squares.each { |square| return square if coordinate == square.coordinate }
-    raise "square '#{coordinate}' does not exist."
   end
 end
 
