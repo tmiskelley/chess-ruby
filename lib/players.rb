@@ -8,4 +8,8 @@ class Player
     @name = name
     @pieces = pieces
   end
+
+  def move_piece(piece, coordinate)
+    @pieces[piece].move(coordinate)
+  end
 end

@@ -28,8 +28,7 @@ class ChessBoard
     king_start.piece = king
   end
 
-  def move_piece(piece, move)
-    coordinate = move[1..]
+  def move_piece(piece, coordinate)
     new_spot = find_square(coordinate)
 
     find_square(piece.current_pos).piece = nil

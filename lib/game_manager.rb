@@ -50,8 +50,8 @@ class GameManager
 
   def player_move
     input = validate_input
-    @board.move_piece(@current_player.pieces[input[0]], input)
-    @current_player.pieces[input[0]].move(input[1..])
+    @board.move_piece(@current_player.pieces[input[0]], input[1..])
+    @current_player.move_piece(input[0], input[1..])
   end
 
   def validate_input
