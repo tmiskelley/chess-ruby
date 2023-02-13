@@ -2,6 +2,7 @@
 
 require './lib/players'
 require './lib/board'
+Dir['./lib/pieces/*'].each { |file| require file }
 
 # this class controls the overall functionality of the chess game, making
 # all necessary changes and updates to the games state, and sending messages
@@ -27,11 +28,13 @@ class GameManager
 
   def create_players
     white_pieces = {
-      'K' => King.new("\u265A", 'e1')
+      'K' => King.new("\u265A", 'e1'),
+      'P' => Pawn.new("\u265f", 'b2')
     }
 
     black_pieces = {
-      'K' => King.new("\u2654", 'e8')
+      'K' => King.new("\u2654", 'e8'),
+      'P' => Pawn.new("\u2659", 'c7')
     }
 
     white_player = Player.new('White', white_pieces)
@@ -43,7 +46,7 @@ class GameManager
   def place_pieces
     @players.each do |player|
       player.pieces.each do |_key, piece|
-        @board.place_king(piece)
+        @board.place_pieces(piece)
       end
     end
   end

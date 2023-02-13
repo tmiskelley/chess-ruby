@@ -23,9 +23,9 @@ class ChessBoard
     raise "square '#{coordinate}' does not exist."
   end
 
-  def place_king(king)
-    king_start = find_square(king.current_pos)
-    king_start.piece = king
+  def place_pieces(piece)
+    piece_start = find_square(piece.current_pos)
+    piece_start.piece = piece
   end
 
   def move_piece(piece, coordinate)
