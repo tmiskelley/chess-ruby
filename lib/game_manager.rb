@@ -2,7 +2,7 @@
 
 require './lib/players'
 require './lib/board'
-Dir['./lib/pieces/*'].each { |file| require file }
+require './lib/pieces'
 
 # this class controls the overall functionality of the chess game, making
 # all necessary changes and updates to the games state, and sending messages

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './lib/pieces/king'
-
 # represents chess board as a data structure,
 # creates and contains reference to all square nodes and their data
 class ChessBoard
@@ -13,7 +11,6 @@ class ChessBoard
     @squares.each_with_index do |square, i|
       print "|\n" if (i % 8).zero? && !i.zero?
       print square.piece.nil? ? '|   ' : "| #{square.piece.symbol} "
-      # remember to update piece printing to unicode symbol
     end
     print "|\n"
   end
