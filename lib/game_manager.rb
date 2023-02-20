@@ -36,6 +36,7 @@ class GameManager
   def instantiate_white_pieces
     {
       'K' => King.new("\u265A", 'e1'),
+      'N' => [Knight.new("\u265e", 'b1'), Knight.new("\u265e", 'g1')],
       'a' => Pawn.new("\u265f", 'a2'),
       'b' => Pawn.new("\u265f", 'b2'),
       'c' => Pawn.new("\u265f", 'c2'),
@@ -50,6 +51,7 @@ class GameManager
   def instantiate_black_pieces
     {
       'K' => King.new("\u2654", 'e8'),
+      'N' => [Knight.new("\u2658", 'b8'), Knight.new("\u2658", 'g8')],
       'a' => Pawn.new("\u2659", 'a7'),
       'b' => Pawn.new("\u2659", 'b7'),
       'c' => Pawn.new("\u2659", 'c7'),
@@ -63,8 +65,12 @@ class GameManager
 
   def place_pieces
     @players.each do |player|
-      player.pieces.each do |_key, piece|
-        @board.place_pieces(piece)
+      player.pieces.each do |_key, element|
+        if element.is_a?(Array)
+          element.each { |piece| @board.place_pieces(piece) }
+        else
+          @board.place_pieces(element)
+        end
       end
     end
   end
@@ -83,14 +89,14 @@ class GameManager
     unless invalid_input?(input)
       coordinate = set_coordinate(input)
       coordinate[1] = coordinate[1].to_i
-      return input if potential_move?(input, coordinate) && not_king?(input, coordinate)
+      return input if potential_move?(input, coordinate) && free_square?(input, coordinate)
     end
 
     input_error
   end
 
   def invalid_input?(input)
-    input == '' || input.size > 3 || !@current_player.pieces.key?(input[0])
+    input == '' || !@current_player.pieces.key?(input[0])
   end
 
   def potential_move?(input, coordinate)
@@ -101,9 +107,9 @@ class GameManager
     input.size == 2 ? input[0..].split('') : input[1..].split('')
   end
 
-  def not_king?(input, coordinate)
-    # returns true as long as the piece on chosen square is not the king
-    !@board.find_square(coordinate.join).piece.is_a? King
+  def free_square?(input, coordinate)
+    # returns true as long as the selected square does not have a piece on it
+    @board.find_square(coordinate.join).piece.nil?
   end
 
   def input_error

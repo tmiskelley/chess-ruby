@@ -21,8 +21,8 @@ class ChessBoard
   end
 
   def place_pieces(piece)
-    piece_start = find_square(piece.current_pos)
-    piece_start.piece = piece
+    square = find_square(piece.current_pos)
+    square.piece = piece
   end
 
   def move_piece(piece, coordinate)

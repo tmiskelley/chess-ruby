@@ -37,6 +37,23 @@ class King < GamePiece
   end
 end
 
+# represents chess knight moveset and rules
+class Knight < GamePiece
+  MOVES = [
+    [-2, -1], [-2, 1], [-1, -2], [-1, 2],
+    [1, -2], [1, 2], [2, -1], [2, 1]
+  ]
+
+  def generate_moves(current_spot)
+    current_spot[0] = current_spot[0].ord
+    current_spot[1] = current_spot[1].to_i
+    MOVES
+      .map { |arr| [current_spot[0] + arr[0], current_spot[1] + arr[1]] }
+      .select { |arr| arr[0].between?(97, 104) && arr[1].between?(1, 8) }
+      .map { |arr| [arr[0].chr, arr[1]] }
+  end
+end
+
 # represents chess pawn moveset and rules
 class Pawn < GamePiece
   def generate_moves(current_spot)
