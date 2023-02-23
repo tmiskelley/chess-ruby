@@ -47,7 +47,7 @@ class GameManager
 
   def player_move
     input = validate_input
-    coordinate = set_coordinate(input).join
+    coordinate = set_coordinate(input)
 
     @board.move_piece(@current_player.pieces[input[0]], coordinate)
     @current_player.move_piece(input[0], coordinate)
@@ -57,7 +57,7 @@ class GameManager
     input = gets.chomp
 
     unless invalid_input?(input)
-      coordinate = set_coordinate(input)
+      coordinate = set_coordinate(input).split('')
       coordinate[1] = coordinate[1].to_i
       return input if potential_move?(input, coordinate) && free_square?(input, coordinate)
     end
@@ -75,7 +75,7 @@ class GameManager
 
   # sets the coordinates depending on whether the player entered pawn move
   def set_coordinate(input)
-    input.size == 2 ? input[0..].split('') : input[1..].split('')
+    input.size == 2 ? input[0..] : input[1..]
   end
 
   def free_square?(input, coordinate)
