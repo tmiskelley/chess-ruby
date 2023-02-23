@@ -21,31 +21,31 @@ class Player
 
   def instantiate_white_pieces
     {
-      'K' => King.new("\u265A", 'e1'),
-      'N' => [Knight.new("\u265e", 'b1'), Knight.new("\u265e", 'g1')],
-      'a' => Pawn.new("\u265f", 'a2'),
-      'b' => Pawn.new("\u265f", 'b2'),
-      'c' => Pawn.new("\u265f", 'c2'),
-      'd' => Pawn.new("\u265f", 'd2'),
-      'e' => Pawn.new("\u265f", 'e2'),
-      'f' => Pawn.new("\u265f", 'f2'),
-      'g' => Pawn.new("\u265f", 'g2'),
-      'h' => Pawn.new("\u265f", 'h2')
+      'K' => King.new("\u2654", 'e1'),
+      'N' => [Knight.new("\u2658", 'b1'), Knight.new("\u2658", 'g1')],
+      'a' => Pawn.new("\u2659", 'a2'),
+      'b' => Pawn.new("\u2659", 'b2'),
+      'c' => Pawn.new("\u2659", 'c2'),
+      'd' => Pawn.new("\u2659", 'd2'),
+      'e' => Pawn.new("\u2659", 'e2'),
+      'f' => Pawn.new("\u2659", 'f2'),
+      'g' => Pawn.new("\u2659", 'g2'),
+      'h' => Pawn.new("\u2659", 'h2')
     }
   end
 
   def instantiate_black_pieces
     {
-      'K' => King.new("\u2654", 'e8'),
-      'N' => [Knight.new("\u2658", 'b8'), Knight.new("\u2658", 'g8')],
-      'a' => Pawn.new("\u2659", 'a7'),
-      'b' => Pawn.new("\u2659", 'b7'),
-      'c' => Pawn.new("\u2659", 'c7'),
-      'd' => Pawn.new("\u2659", 'd7'),
-      'e' => Pawn.new("\u2659", 'e7'),
-      'f' => Pawn.new("\u2659", 'f7'),
-      'g' => Pawn.new("\u2659", 'g7'),
-      'h' => Pawn.new("\u2659", 'h7')
+      'K' => King.new("\u265a", 'e8'),
+      'N' => [Knight.new("\u265e", 'b8'), Knight.new("\u265e", 'g8')],
+      'a' => Pawn.new("\u265f", 'a7'),
+      'b' => Pawn.new("\u265f", 'b7'),
+      'c' => Pawn.new("\u265f", 'c7'),
+      'd' => Pawn.new("\u265f", 'd7'),
+      'e' => Pawn.new("\u265f", 'e7'),
+      'f' => Pawn.new("\u265f", 'f7'),
+      'g' => Pawn.new("\u265f", 'g7'),
+      'h' => Pawn.new("\u265f", 'h7')
     }
   end
 end

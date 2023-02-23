@@ -60,13 +60,13 @@ class Pawn < GamePiece
     moves = []
     current_spot[1] = current_spot[1].to_i
 
-    @symbol == "\u265f" ? current_spot[1] += 1 : current_spot[1] -= 1
+    @symbol == "\u2659" ? current_spot[1] += 1 : current_spot[1] -= 1
     moves.push(current_spot)
 
     if first_move?(current_spot)
       double_move = current_spot.dup
 
-      @symbol == "\u265f" ? double_move[1] += 1 : double_move[1] -= 1
+      @symbol == "\u2659" ? double_move[1] += 1 : double_move[1] -= 1
       moves.push(double_move)
     end
 
@@ -74,6 +74,6 @@ class Pawn < GamePiece
   end
 
   def first_move?(current_spot)
-    @symbol == "\u265f" ? current_spot[1] == 3 : current_spot[1] == 6
+    @symbol == "\u2659" ? current_spot[1] == 3 : current_spot[1] == 6
   end
 end
