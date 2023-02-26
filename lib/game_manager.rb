@@ -47,10 +47,11 @@ class GameManager
 
   def player_move
     input = validate_input
-    coordinate = set_coordinate(input)
+    piece = input[0]
+    coordinate = input[1]
 
-    @board.move_piece(@current_player.pieces[input[0]], coordinate)
-    @current_player.move_piece(input[0], coordinate)
+    @board.move_piece(piece, coordinate)
+    @current_player.move_piece(piece, coordinate)
   end
 
   def validate_input
@@ -59,7 +60,8 @@ class GameManager
     unless invalid_input?(input)
       coordinate = set_coordinate(input).split('')
       coordinate[1] = coordinate[1].to_i
-      return input if potential_move?(input, coordinate) && free_square?(input, coordinate)
+
+      return select_piece(input, coordinate) if potential_move?(input, coordinate) && free_square?(input, coordinate)
     end
 
     input_error
@@ -69,18 +71,43 @@ class GameManager
     input == '' || !@current_player.pieces.key?(input[0])
   end
 
-  def potential_move?(input, coordinate)
-    @current_player.pieces[input[0]].potential_moves.any? { |arr| arr == coordinate }
-  end
-
   # sets the coordinates depending on whether the player entered pawn move
   def set_coordinate(input)
     input.size == 2 ? input[0..] : input[1..]
   end
 
+  def potential_move?(input, coordinate)
+    element = @current_player.pieces[input[0]]
+  
+    if double_piece?(input)
+      element.each do |piece|
+        piece.potential_moves.any? { |arr| arr == coordinate }
+      end
+    else
+      element.potential_moves.any? { |arr| arr == coordinate }
+    end
+  end
+
+  def double_piece?(input)
+    # returns true if there are two of the same piece type in player hash
+    @current_player.pieces[input[0]].is_a?(Array)
+  end
+
   def free_square?(input, coordinate)
     # returns true as long as the selected square does not have a piece on it
     @board.find_square(coordinate.join).piece.nil?
+  end
+
+  def select_piece(input, coordinate)
+    piece = @current_player.pieces[input[0]]
+
+    if double_piece?(input)
+      piece.each do |item|
+        piece = item if item.potential_moves.any? { |arr| arr == coordinate }
+      end
+    end
+
+    [piece, coordinate.join]
   end
 
   def input_error

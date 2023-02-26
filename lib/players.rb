@@ -11,7 +11,7 @@ class Player
   end
 
   def move_piece(piece, coordinate)
-    @pieces[piece].move(coordinate)
+    piece.move(coordinate)
   end
 
   def instantiate_pieces
