@@ -63,6 +63,32 @@ class Rook  < GamePiece
   end
 end
 
+# represents chess bishop moveset and rules
+class Bishop < GamePiece
+  MOVES = [
+    [-1, -1], [-1, 1], [1, -1], [1, 1]
+  ]
+
+  def generate_moves(current_spot)
+    current_spot = [current_spot[0].ord, current_spot[1].to_i]
+    bishop_moves = []
+
+    MOVES.each do |transform|
+      spot = current_spot.dup
+      until !valid_square(spot)
+        spot = [spot[0] + transform[0], spot[1] + transform[1]]
+        bishop_moves.push(spot) if valid_square(spot)
+      end
+    end
+
+    bishop_moves.map { |arr| [arr[0].chr, arr[1]] }
+  end
+
+  def valid_square(coordinate)
+    coordinate[0].between?(97, 104) && coordinate[1].between?(1, 8)
+  end
+end
+
 # represents chess knight moveset and rules
 class Knight < GamePiece
   MOVES = [
