@@ -22,6 +22,7 @@ class Player
   def instantiate_white_pieces
     {
       'K' => King.new("\u2654", 'e1'),
+      'R' => [Rook.new("\u2656", 'a1'), Rook.new("\u2656", 'h1')],
       'N' => [Knight.new("\u2658", 'b1'), Knight.new("\u2658", 'g1')],
       'a' => Pawn.new("\u2659", 'a2'),
       'b' => Pawn.new("\u2659", 'b2'),
@@ -37,6 +38,7 @@ class Player
   def instantiate_black_pieces
     {
       'K' => King.new("\u265a", 'e8'),
+      'R' => [Rook.new("\u265c", 'a8'), Rook.new("\u265c", 'h8')],
       'N' => [Knight.new("\u265e", 'b8'), Knight.new("\u265e", 'g8')],
       'a' => Pawn.new("\u265f", 'a7'),
       'b' => Pawn.new("\u265f", 'b7'),

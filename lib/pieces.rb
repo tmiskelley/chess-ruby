@@ -27,13 +27,39 @@ class King < GamePiece
 
   # generates all possible moves that the King can make
   def generate_moves(current_spot)
-    current_spot[0] = current_spot[0].ord
-    current_spot[1] = current_spot[1].to_i
+    current_spot = [current_spot[0].ord, current_spot[1].to_i]
+
     MOVES
       .map { |arr| [current_spot[0] + arr[0], current_spot[1] + arr[1]] }
       .select { |arr| arr[0].between?(97, 104) && arr[1].between?(1, 8) }
       .map { |arr| [arr[0].chr, arr[1]] }
       .reject { |arr| arr.join == @current_pos }
+  end
+end
+
+# represents chess rook moveset and rules
+class Rook  < GamePiece
+  MOVES = [
+    [-1, 0], [0, -1], [0, 1], [1, 0]
+  ]
+
+  def generate_moves(current_spot)
+    current_spot = [current_spot[0].ord, current_spot[1].to_i]
+    rook_moves = []
+
+    MOVES.each do |transform|
+      spot = current_spot.dup
+      until !valid_square(spot)
+        spot = [spot[0] + transform[0], spot[1] + transform[1]]
+        rook_moves.push(spot) if valid_square(spot)
+      end
+    end
+
+    rook_moves.map { |arr| [arr[0].chr, arr[1]] }
+  end
+
+  def valid_square(coordinate)
+    coordinate[0].between?(97, 104) && coordinate[1].between?(1, 8)
   end
 end
 
@@ -45,8 +71,8 @@ class Knight < GamePiece
   ]
 
   def generate_moves(current_spot)
-    current_spot[0] = current_spot[0].ord
-    current_spot[1] = current_spot[1].to_i
+    current_spot = [current_spot[0].ord, current_spot[1].to_i]
+
     MOVES
       .map { |arr| [current_spot[0] + arr[0], current_spot[1] + arr[1]] }
       .select { |arr| arr[0].between?(97, 104) && arr[1].between?(1, 8) }
