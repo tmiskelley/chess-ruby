@@ -81,10 +81,10 @@ class GameManager
   
     if double_piece?(input)
       element.each do |piece|
-        piece.potential_moves.any? { |arr| arr == coordinate }
+        piece.potential_moves.include?(coordinate)
       end
     else
-      element.potential_moves.any? { |arr| arr == coordinate }
+      element.potential_moves.include?(coordinate)
     end
   end
 
@@ -103,11 +103,11 @@ class GameManager
 
     if double_piece?(input)
       piece.each do |item|
-        piece = item if item.potential_moves.any? { |arr| arr == coordinate }
+        piece = item if item.potential_moves.include?(coordinate)
       end
     end
 
-    [piece, coordinate.join]
+    piece.is_a?(Array) ? input_error : [piece, coordinate.join]
   end
 
   def input_error
