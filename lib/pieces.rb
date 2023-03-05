@@ -37,6 +37,50 @@ class King < GamePiece
   end
 end
 
+# represents chess queen moveset and rules
+class Queen < GamePiece
+  MOVESET_1 = [-1, 0, 1].repeated_permutation(2).to_a
+  MOVESET_2 = [[-1, 0], [0, -1], [0, 1], [1, 0]]
+  MOVESET_3 = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
+
+  def generate_moves(current_spot)
+    current_spot = [current_spot[0].ord, current_spot[1].to_i]
+    queen_moves = []
+
+    king_moves(current_spot.dup).each { |arr| queen_moves.push(arr) }
+    rook_and_bishop(current_spot.dup, MOVESET_2).each { |arr| queen_moves.push(arr) }
+    rook_and_bishop(current_spot.dup, MOVESET_3).each { |arr| queen_moves.push(arr) }
+
+    queen_moves
+  end
+
+  def king_moves(current_spot)
+    MOVESET_1
+      .map { |arr| [current_spot[0] + arr[0], current_spot[1] + arr[1]] }
+      .select { |arr| arr[0].between?(97, 104) && arr[1].between?(1, 8) }
+      .map { |arr| [arr[0].chr, arr[1]] }
+      .reject { |arr| arr.join == @current_pos }
+  end
+
+  def rook_and_bishop(current_spot, moveset)
+    moves = []
+
+    moveset.each do |transform|
+      spot = current_spot.dup
+      until !valid_square(spot)
+        spot = [spot[0] + transform[0], spot[1] + transform[1]]
+        moves.push(spot) if valid_square(spot)
+      end
+    end
+
+    moves.map { |arr| [arr[0].chr, arr[1]] }
+  end
+
+  def valid_square(coordinate)
+    coordinate[0].between?(97, 104) && coordinate[1].between?(1, 8)
+  end
+end
+
 # represents chess rook moveset and rules
 class Rook  < GamePiece
   MOVES = [
