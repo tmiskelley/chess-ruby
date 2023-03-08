@@ -19,6 +19,10 @@ class GamePiece
   def update_position
     @potential_moves = generate_moves(@current_pos.split(''))
   end
+
+  def valid_square?(coordinate)
+    coordinate[0].between?(97, 104) && coordinate[1].between?(1, 8)
+  end
 end
 
 # represents chess king moveset and rules
@@ -67,17 +71,13 @@ class Queen < GamePiece
 
     moveset.each do |transform|
       spot = current_spot.dup
-      until !valid_square(spot)
+      until !valid_square?(spot)
         spot = [spot[0] + transform[0], spot[1] + transform[1]]
-        moves.push(spot) if valid_square(spot)
+        moves.push(spot) if valid_square?(spot)
       end
     end
 
     moves.map { |arr| [arr[0].chr, arr[1]] }
-  end
-
-  def valid_square(coordinate)
-    coordinate[0].between?(97, 104) && coordinate[1].between?(1, 8)
   end
 end
 
@@ -93,17 +93,13 @@ class Rook  < GamePiece
 
     MOVES.each do |transform|
       spot = current_spot.dup
-      until !valid_square(spot)
+      until !valid_square?(spot)
         spot = [spot[0] + transform[0], spot[1] + transform[1]]
-        rook_moves.push(spot) if valid_square(spot)
+        rook_moves.push(spot) if valid_square?(spot)
       end
     end
 
     rook_moves.map { |arr| [arr[0].chr, arr[1]] }
-  end
-
-  def valid_square(coordinate)
-    coordinate[0].between?(97, 104) && coordinate[1].between?(1, 8)
   end
 end
 
@@ -119,17 +115,13 @@ class Bishop < GamePiece
 
     MOVES.each do |transform|
       spot = current_spot.dup
-      until !valid_square(spot)
+      until !valid_square?(spot)
         spot = [spot[0] + transform[0], spot[1] + transform[1]]
-        bishop_moves.push(spot) if valid_square(spot)
+        bishop_moves.push(spot) if valid_square?(spot)
       end
     end
 
     bishop_moves.map { |arr| [arr[0].chr, arr[1]] }
-  end
-
-  def valid_square(coordinate)
-    coordinate[0].between?(97, 104) && coordinate[1].between?(1, 8)
   end
 end
 
